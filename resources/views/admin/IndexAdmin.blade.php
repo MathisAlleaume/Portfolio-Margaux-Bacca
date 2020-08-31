@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<example-component></example-component>
+<div id='app'>
+    <example-component></example-component>
+    </div>
 @endsection('content')

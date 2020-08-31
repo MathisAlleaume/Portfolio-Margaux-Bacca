@@ -3,10 +3,13 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-
+import VueYoutube from 'vue-youtube'
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
 require('./bootstrap');
 
 window.Vue = require('vue');
+Vue.use(BootstrapVue);
+Vue.use(VueYoutube);
 
 /**
  * The following block of code may be used to automatically register your

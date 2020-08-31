@@ -22,3 +22,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/indexAdmin', 'AdminController@index')->name('indexAdmin');
+
+// Vidéo
+Route::post('/videoCreate', 'VideoController@create')->name('videoCreate');
+Route::get('/videoList', 'VideoController@getALl')->name('videoList');
+Route::post('/videoSingle', 'VideoController@getSingle')->name('videoSingle');
