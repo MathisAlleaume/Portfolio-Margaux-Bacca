@@ -10,26 +10,33 @@ use Illuminate\Support\Facades\Storage;
 class PhotoController extends Controller{
 
     public function create(Request $request){
-        $files = $request->get('files');
-        $collection = Collection::find($request->get('collectionID'));
+        $collection = Collection::find($request->get('collection'));
+        $a = [];
         if($collection->Type == 1){
-            $path = storage_path() . "/app/public/imgs/photos/Collection_" . $collection->Titre."/";
+            $path = "/public/imgs/photos/Collection_" . $collection->Titre."/";
         }elseif($collection->Type == 2){
-            $path = storage_path() . "/app/public/imgs/dessins/Collection_" . $collection->Titre."/";
+            $path = "/public/imgs/dessins/Collection_" . $collection->Titre."/";
         }
-        foreach($files as $img){
+
             $photo = new Photo([
                 'Collection_Id' => $collection->Id,
                 'Image' => null
             ]);
-            $photo->save();
-            $photo->Image = $collection->Titre.$photo->Id;
-            $photo->save();
-            // Storage::put($path, $img->file);
-            return($img);
-        }
 
-        return response('success', 200);
+            $cpt = Photo::where("Collection_Id", $collection->Id)->count();
+            $cpt++;
+            $fichier = $request->file('file');
+                $photo->Image = "test";
+            $extension =pathinfo($request->file->getClientOriginalName(), PATHINFO_EXTENSION);
+            Storage::put($path."/".$photo->Image.".".$extension, $fichier);
+
+            // $photo->save();
+            // $photo->Image = $collection->Titre."-".$cpt;
+            // $photo->save();
+            // $fullpath = $path."-".$photo->Image;
+
+
+        return response($fichier, 200);
     }
 
     public function edit(Request $request){

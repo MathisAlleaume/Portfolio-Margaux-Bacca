@@ -94,6 +94,7 @@
                   <b-form-file
                     v-model="photos.imgs"
                     :state="Boolean(photos.imgs)"
+                    :disabled="photos.collectionID == null"
                     multiple
                     placeholder="Choose a photo or drop it here..."
                     drop-placeholder="Drop file here..."
@@ -128,78 +129,19 @@
             <div v-if="action == 'edit'">
               <div class="row">
                 <div class="col-md-1">
-                  <label for="videoSelect">Vidéo :</label>
+                  <label for="collectionSelect">Collection:</label>
                 </div>
                 <div class="col-md-11">
                   <b-form-select
-                    v-model="selectedVideo"
-                    :options="videoSelOptions"
-                    name="videoSelect"
-                    id="videoSelect"
-                    @change="getVideo()"
+                    v-model="photos.collectionID"
+                    :options="collectionSelOptions"
+                    @change="getCollection()"
+                    id="collectionSelect"
+                    name="collectionSelect"
                   ></b-form-select>
                 </div>
               </div>
-              <br />
-              <div class="row">
-                <div class="col-md-1"></div>
-                <div class="col-md-10">
-                  <hr />
-                </div>
-                <div class="col-md-1"></div>
-              </div>
-              <br />
-              <div class="row">
-                <div class="col-md-1">
-                  <label for="videoTitleInput">Titre :</label>
-                </div>
-                <div class="col-md-11">
-                  <b-form-input
-                    type="text"
-                    name="videoTitleInput"
-                    id="videoTitleInput"
-                    v-model="video.Titre"
-                  ></b-form-input>
-                </div>
-              </div>
-              <br />
-              <div class="row">
-                <div class="col-md-1">
-                  <label for="videoLinkInput">Lien :</label>
-                </div>
-                <div class="col-md-10">
-                  <b-form-input
-                    type="text"
-                    name="videoLinkInput"
-                    id="videoLinkInput"
-                    v-model="video.lien"
-                  ></b-form-input>
-                </div>
-                <div class="col-md-1" style="padding-left: 0px">
-                  <b-button v-on:click="videoPreview()">preview</b-button>
-                </div>
-              </div>
-              <br />
-              <div class="row">
-                <div class="col-md-2"></div>
-                <div class="col-md-8">
-                  <youtube
-                    :video-id="ytbID"
-                    ref="youtube"
-                    v-if="onPreview == true"
-                  ></youtube>
-                </div>
-                <div class="col-md-2"></div>
-              </div>
-              <div class="row">
-                <div class="col-md-5"></div>
-                <div class="col-md-2">
-                  <b-button variant="success" v-on:click="videoEdit()"
-                    >Modifier</b-button
-                  >
-                </div>
-                <div class="col-md-5"></div>
-              </div>
+              <hr />
             </div>
             <div v-if="action == 'del'">
               <div class="row">
@@ -605,6 +547,7 @@ export default {
       collectionCoverSelectDisabled: false,
       ytbID: null,
       onPreview: false,
+      test: []
     };
   },
   mounted() {
@@ -718,12 +661,13 @@ export default {
 
     imgsUploaded() {
       var photosArray = [];
-      this.photos.files = new FormData();
       var url = null;
+
+      //   debugger;
       for (var i = 0; i < this.photos.imgs.length; i++) {
+          this.test.push(this.photos.imgs[i]);
         url = URL.createObjectURL(this.photos.imgs[i]);
         photosArray.push(url);
-        this.photos.files.append("files", this.photos.imgs[i]);
       }
       this.photos.imgs = photosArray;
       this.photosPreviewed = true;
@@ -733,9 +677,22 @@ export default {
       if (this.photosPreviewed == false) {
         this.imgsUploaded();
       }
+      for (var i = 0; i < this.photos.imgs.length; i++) {
+          this.photos.files = new FormData();
+        this.photos.files.append("collection", this.photos.collectionID);
+        this.photos.files.append("file", this.test[i]);
+        console.log(this.photos.files.getAll("collection"));
+        console.log(this.photos.files.getAll("files"));
+        this.sendStore();
+      }
+    },
 
-      if (this.photos.collectionID != null)
-        axios.post("/photoCreate", this.photos).then(console.log("yessss"));
+    sendStore() {
+      if (this.photos.collectionID != null) {
+        axios
+          .post("/photoCreate", this.photos.files)
+          .then(console.log("yessss"));
+      }
     },
 
     // gestion de videos

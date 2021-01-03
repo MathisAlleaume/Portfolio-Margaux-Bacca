@@ -1,5 +1,7 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url("https://fonts.googleapis.com/css2?family=Amatic+SC&display=swap");
+
 
 // Variables
 @import 'variables';
@@ -7,7 +9,8 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
-html, body {
+html,
+body {
     background-color: #fff;
     color: #636b6f;
     font-family: 'Nunito', sans-serif;
@@ -40,20 +43,122 @@ html, body {
     text-align: center;
 }
 
-.title {
-    font-size: 84px;
+#hero {
+    background: url("/storage/background/2.svg") center center;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    color: #636b6f;
+    font-family: "Nunito", sans-serif;
+    font-weight: 200;
+    /* height: 100vh; */
+    margin: 0;
+    padding: 0;
+
 }
 
-.links > a {
-    color: #636b6f;
+.title {
+    font-family: "Amatic SC", cursive;
+    color: #fff;
+    font-size: 166pt;
+}
+
+.links>a {
+
+    font-family: "Amatic SC", cursive;
+    color: #fff;
     padding: 0 25px;
-    font-size: 13px;
+    font-size: 35pt;
     font-weight: 600;
-    letter-spacing: .1rem;
+    letter-spacing: 0.1rem;
     text-decoration: none;
     text-transform: uppercase;
 }
 
 .m-b-md {
     margin-bottom: 30px;
+}
+
+
+.customNav {
+    position: fixed;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 3;
+
+    a {
+        font-size: 0px;
+        line-height: 0px;
+        display: block;
+        width: 20px;
+        height: 20px;
+        background: #fff;
+        border: 4px solid #fff;
+        border-radius: 50%;
+        margin: 10px 0;
+        filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.5));
+
+
+        a:hover {
+            background: #3e8e41;
+            border: 4px solid #3e8e41;
+        }
+    }
+}
+
+
+
+// middle section
+
+.middleSections {
+    display: flex;
+    overflow-x: auto;
+
+    section {
+        height: 100vh;
+
+    }
+
+    #middleSectionPres {
+        background: url("/storage/background/3.svg") center center;
+        height: 100vh;
+        width: 100vw;
+        background-position: center !important;
+        background-repeat: no-repeat !important;
+        background-size: cover !important;
+    }
+
+    // #middlesection2{
+    //     height: 100vh;
+    //     width: 100vw;
+    // }
+
+}
+
+.customNavPres {
+    position: fixed;
+    bottom: 20px;
+    left: 48%;
+    // transform: translateY(-50%);
+    z-index: 3;
+
+    a {
+        font-size: 0px;
+        line-height: 0px;
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        background: #fff;
+        border: 4px solid #fff;
+        border-radius: 50%;
+        margin: 10px 5px;
+        filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.5));
+
+
+        a:hover {
+            background: #3e8e41;
+            border: 4px solid #3e8e41;
+        }
+    }
 }

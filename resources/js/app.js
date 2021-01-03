@@ -24,6 +24,7 @@ Vue.use(VueYoutube);
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('hero', require('./components/hero.vue').default);
+Vue.component('middlesection', require('./components/middlesection.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -33,4 +34,9 @@ Vue.component('hero', require('./components/hero.vue').default);
 
 const app = new Vue({
     el: '#app',
+    // components: {
+    //     'hero': require('./components/hero.vue'),
+    //     'middlesection': require('./components/middlesection.vue'),
+    // }
+
 });

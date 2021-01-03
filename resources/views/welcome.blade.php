@@ -8,13 +8,14 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <!-- Styles -->
 
     </head>
     <body>
         <div id='app'>
-            <hero></hero>
+            <hero id="hero"></hero>
+            <middleSection></middleSection>
             </div>
     </body>
 </html>
